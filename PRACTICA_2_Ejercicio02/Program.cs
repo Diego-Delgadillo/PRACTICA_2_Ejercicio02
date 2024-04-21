@@ -40,17 +40,39 @@ public class elemento
         //creamos un ciclo for para ir almacenando cada atributo en el arreglo
         for (int i = 0; i < nElementos; i++)
         {
+            string c; bool num; 
             Console.WriteLine("\n");
             Console.WriteLine("Ingrese el nombre del elemento {0}: ",i + 1);
             nombreElemento[i] = Console.ReadLine();
             Console.WriteLine("Ingrese el símbolo del elemento {0}: ",i + 1);
             simboloElemento[i] = Console.ReadLine();
-            Console.WriteLine("Ingrese el número atómico del elemento {0}: ",i + 1);
-            noAtomicoElemento[i] = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Ingrese la masa atómica del elemento {0}: ",i + 1);
-            masaAtomica[i] = Convert.ToDouble(Console.ReadLine());
+
+            do// este ciclo es para que se ingresen solo números enteros mayores a cero
+            {
+                Console.WriteLine("Ingrese el número atómico del elemento {0}: ", i + 1);
+                c = Console.ReadLine();
+                num = int.TryParse(c, out noAtomicoElemento[i]);
+            } while (!num || noAtomicoElemento[i] <= 0);
+            noAtomicoElemento[i] = Convert.ToInt32(c);
+
+            do // este ciclo es para que se ingresen solo números flotantes mayores a cero
+            {
+                Console.WriteLine("Ingrese la masa atómica del elemento {0}: ", i + 1);
+                c = Console.ReadLine();
+                num = double.TryParse(c, out masaAtomica[i]);
+            } while (!num || masaAtomica[i] <= 0);
+            masaAtomica[i] = Convert.ToDouble(c);
+
+            do // este ciclo es para que se ingresen solo números flotantes mayores a cero
+            {
+                Console.WriteLine("Ingrese el radio atómico del elemento {0}: ", i + 1);
+                c= Console.ReadLine();
+                num = double.TryParse(c, out radioAtomico[i]);
+            } while (!num || radioAtomico[i] <= 0);
             Console.WriteLine("Ingrese el radio atómico del elemento {0}: ",i + 1);
-            radioAtomico[i] = Convert.ToDouble(Console.ReadLine());
+            radioAtomico[i] = Convert.ToDouble(c);
+
+
             Console.WriteLine("Ingrese el estado ordinario del elemento {0}: ",i + 1);
             estadoOrdinarioElemento[i] = Console.ReadLine();
         }
@@ -77,11 +99,12 @@ public class program()
 {
     static public void Main()
     {
-        elemento elementosIngresados = new elemento();
+        elemento elementosIngresados = new elemento(); //creamos el objeto de la clase "elemento"
         int opcionMenu1 = 0; //varible de control para el menu
         int n = 0; //variable para la opcion 1 donde indica la cantidad de datos a ingresar
         bool opcionMenu = true;
-
+        string cadena; //esta variable es para comparar si es string en el metodo Tryparse
+        bool num; // esta variable se utiliza en le metod tryparse para ver si es verdadero o falso el metodo tryparse
 
         //Creamos una funcion para que continue o salga del programa
         bool continuar()
@@ -103,9 +126,26 @@ public class program()
 
         while(opcionMenu == true)
         {
+
             Console.WriteLine("Este programa permite ingresar, guardar y mostrar datos de distintos elementos químicos.\n");
-            Console.WriteLine("Ingrese una opción: (1)Ingresar datos, (2)Mostrar datos, (3)Almacenar en un archivo(.txt), (4)Salir\r\n");
-            opcionMenu1 = Convert.ToInt32(Console.ReadLine());
+
+
+            do
+            {
+                Console.WriteLine("Ingrese una opción: (1)Ingresar datos, (2)Mostrar datos, (3)Almacenar en un archivo(.txt), (4)Salir\r\n");
+                cadena = Console.ReadLine();    
+                num = int.TryParse(cadena, out opcionMenu1);
+            } while (!num);
+
+            opcionMenu1 = Convert.ToInt32(cadena);
+
+
+
+
+
+
+
+
 
             switch (opcionMenu1)
             {
