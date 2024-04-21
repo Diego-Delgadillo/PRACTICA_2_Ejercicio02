@@ -140,13 +140,6 @@ public class program()
             opcionMenu1 = Convert.ToInt32(cadena);
 
 
-
-
-
-
-
-
-
             switch (opcionMenu1)
             {
                 case 1:  //variable para almacenar esa cantidad de datos
@@ -175,6 +168,7 @@ public class program()
 
         Console.WriteLine("\nPrograma terminado!\nPresione cualquier tecla para continuar...");
         Console.ReadKey();Console.Beep();
+        
     }
 }
 
@@ -183,4 +177,4 @@ public class program()
 
 
 
-
+ 
