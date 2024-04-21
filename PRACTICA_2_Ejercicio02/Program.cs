@@ -54,36 +54,87 @@ public class elemento
             Console.WriteLine("Ingrese el estado ordinario del elemento {0}: ",i + 1);
             estadoOrdinarioElemento[i] = Console.ReadLine();
         }
+    }
+
+    public void imprimirDatos(int nElementos) //este método nos ayuda a imprimir los datos ingreesados previamente
+    {
 
         Console.WriteLine("\n");
         Console.WriteLine("Nombre\tSímbolo\tNo.atómico\t Masa atómica\t Estado ordinario\t");
         Console.WriteLine("\n");
         //Ciclo for que imprime los elementos
-        for (int j=0; j < nElementos; j++)
+        for (int j = 0; j < nElementos; j++)
         {
             Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", nombreElemento[j], simboloElemento[j], noAtomicoElemento[j], masaAtomica[j], radioAtomico[j], estadoOrdinarioElemento[j]);
-            Console.WriteLine("\n"); 
+            Console.WriteLine("\n");
         }
-
     }
 
 }
-
-
 
 
 public class program()
 {
     static public void Main()
     {
-        int n = 0;// variable para almcaenar la cantidad de datos a ingresar
-        Console.WriteLine("HOLA MUNDO :D");
         elemento elementosIngresados = new elemento();
-        Console.WriteLine("Cuantos elementos desea ingresar? ");
-        n = Convert.ToInt32(Console.ReadLine());
-        elementosIngresados.ingresarDatos(n);
-        Console.ReadKey();
+        int opcionMenu1 = 0; //varible de control para el menu
+        int n = 0; //variable para la opcion 1 donde indica la cantidad de datos a ingresar
+        bool opcionMenu = true;
 
+
+        //Creamos una funcion para que continue o salga del programa
+        bool continuar()
+        {
+            uint n; // variable para que solo ingrese numero
+            bool opcionMenu; string c; bool num;
+
+            // ciclo que evalúa si es un numero dentro del rango
+            do
+            {
+                Console.WriteLine("Para continuar ingrese (1), para salir ingrese (0): ");
+                c = Console.ReadLine();
+                num = uint.TryParse(c, out n);
+            } while ((n > 1) || (n < 0) || !num);
+
+            opcionMenu = Convert.ToBoolean(n);
+            return opcionMenu;
+        }
+
+        while(opcionMenu == true)
+        {
+            Console.WriteLine("Este programa permite ingresar, guardar y mostrar datos de distintos elementos químicos.\n");
+            Console.WriteLine("Ingrese una opción: (1)Ingresar datos, (2)Mostrar datos, (3)Almacenar en un archivo(.txt), (4)Salir\r\n");
+            opcionMenu1 = Convert.ToInt32(Console.ReadLine());
+
+            switch (opcionMenu1)
+            {
+                case 1:  //variable para almacenar esa cantidad de datos
+                    Console.WriteLine("\n¿Cuántos elementos desea ingresar? ");
+                    n = Convert.ToInt32(Console.ReadLine());
+                    elementosIngresados.ingresarDatos(n);
+                    opcionMenu = continuar();
+                    break;
+
+                case 2:
+                    elementosIngresados.imprimirDatos(n);
+                    opcionMenu = continuar();
+                    break;
+
+                case 3: //esta opcion genera un archivo .txt con los datos posteriormente se ira desarrollando esta parte
+                    opcionMenu = continuar();
+                    break;
+
+                case 4: // esta opcione es para salir del programa :D
+                    opcionMenu = false;
+                    break;
+
+                default: Console.WriteLine("Ingrese una opción válida!"); Console.Beep(); break;
+            }
+        }
+
+        Console.WriteLine("\nPrograma terminado!\nPresione cualquier tecla para continuar...");
+        Console.ReadKey();Console.Beep();
     }
 }
 
