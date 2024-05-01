@@ -42,7 +42,7 @@ public class elemento
             radioAtomico = new double[nElementos];
             estadoOrdinarioElemento = new string[nElementos];
         }
-
+    
         else
         {
             // Si ya hay datos en los arreglos, ampliamos su tamaño
@@ -116,13 +116,18 @@ public class elemento
         
 
 
-        for (int i = 0; i < nElementos; i++)
+        for (int i = 0; i < ultimaPosicion; i++)
         {   
-            File.AppendAllText("Elementos.txt", nombreElemento[i]);
-
-                    
+            File.AppendAllText("Elementos.txt", nombreElemento[i] + "\t");
+            File.AppendAllText("Elementos.txt", simboloElemento[i] + "\t");
+            File.AppendAllText("Elementos.txt", noAtomicoElemento[i] + "\t");
+            File.AppendAllText("Elementos.txt", masaAtomica[i] + "\t");
+            File.AppendAllText("Elementos.txt", radioAtomico[i] + "\t");
+            File.AppendAllText("Elementos.txt", estadoOrdinarioElemento[i] + "\t\n");
         }
-
+        DateTime ultimaEdicion = File.GetLastWriteTime("Elementos.txt");
+        File.AppendAllText("Elementos.txt", "\nLa última edición del archivo fue: " + ultimaEdicion);
+        
     }
 
 }
@@ -132,6 +137,7 @@ public class program()
 {
     static public void Main()
     {
+        DateTime fecha = new DateTime(); //esto lo utilizamos para ver la última vez que se editó el archivo .txt
         elemento elementosIngresados = new elemento(); //creamos el objeto de la clase "elemento"
         int opcionMenu1 = 0; //varible de control para el menu
         int n = 0; //variable para la opcion 1 donde indica la cantidad de datos a ingresar
@@ -159,10 +165,7 @@ public class program()
 
         while (opcionMenu == true)
         {
-
-
             Console.WriteLine("Este programa permite ingresar, guardar y mostrar datos de distintos elementos químicos.\n");
-
 
             do
             {
@@ -174,7 +177,7 @@ public class program()
             opcionMenu1 = Convert.ToInt32(cadena);
 
 
-            switch (opcionMenu1)
+            switch (opcionMenu1) //este switch decide lo que hace el programa en funcion del valor ingresado previamente mediante la consola
             {
                 case 1:  //variable para almacenar esa cantidad de datos
                     Console.WriteLine("\n¿Cuántos elementos desea ingresar? ");
@@ -188,9 +191,7 @@ public class program()
                     opcionMenu = continuar();
                     break;
 
-                case 3: //esta opcion genera un archivo .txt con los datos posteriormente se ira desarrollando esta parte
-
-
+                case 3: //esta opcion genera un archivo .txt con los datos 
                     elementosIngresados.guardarDatos(n);
                     opcionMenu = continuar();
                     break;
@@ -199,7 +200,7 @@ public class program()
                     opcionMenu = false;
                     break;
 
-                default: Console.WriteLine("Ingrese una opción válida!"); Console.Beep(); break;
+                default: Console.WriteLine("Ingrese una opción válida!"); Console.Beep(); break;// Mensaje para cuando 
             }
         }
 
